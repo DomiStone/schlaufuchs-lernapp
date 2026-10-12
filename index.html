@@ -11,7 +11,7 @@ body{margin:0;background:#fff7e9;font-family:system-ui,Arial;color:#263547}main{
 const units=window.SCHLAUFUCHS_UNITS;
 let data;try{data=JSON.parse(localStorage.getItem('schlaufuchs-v2'))||{stars:0,records:{},done:[],day:0}}catch{data={stars:0,records:{},done:[],day:0}}if(!data||typeof data!=='object'||Array.isArray(data))data={stars:0,records:{},done:[],day:0};if(!data.records||typeof data.records!=='object'||Array.isArray(data.records))data.records={};if(!Array.isArray(data.done))data.done=[];if(!Number.isFinite(data.stars))data.stars=0;
 let mixSubject=null;let unit,qi=0,hadMistake=false,questionSolved=false,sessionMistakes=0,sessionCorrect=0,testing=false,testQueue=[],testIndex=0,testResults=[];
-function save(){try{localStorage.setItem('schlaufuchs-v2',JSON.stringify(data))}catch(e){console.warn('Lernstand konnte nicht gespeichert werden',e);const msg=document.getElementById('storageWarning');if(msg)msg.hidden=false}}
+function save(){try{localStorage.setItem('schlaufuchs-v2',JSON.stringify(data));const msg=document.getElementById('storageWarning');if(msg)msg.hidden=true;return true}catch(e){console.warn('Lernstand konnte nicht gespeichert werden',e);const msg=document.getElementById('storageWarning');if(msg)msg.hidden=false;return false}}
 function view(id){SchlaufuchsVoice.stop();['home','lesson','parent','plan','sounds','listen','syllables','words'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id))}
 function today(){const d=new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000)}
 function status(u){return data.records[u.id]||{correct:0,errors:0,streak:0,level:0,due:0,attempts:0}}
